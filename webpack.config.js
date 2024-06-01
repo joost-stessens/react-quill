@@ -1,6 +1,11 @@
 const Path = require('path');
 const dir = (...args) => Path.resolve(__dirname, ...args);
 
+const crypto = require("crypto");
+const crypto_orig_createHash = crypto.createHash;
+crypto.createHash = algorithm => crypto_orig_createHash(algorithm === "md4" ? "sha256" : algorithm);
+
+
 module.exports = {
   mode: 'production',
   entry: dir('src/index.tsx'),
